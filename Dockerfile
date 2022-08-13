@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
   # Reporting tools
   kali-tools-reporting
 
-RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv basket
+RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv
 
 RUN git clone https://github.com/jehna/my-terminal-config.git ~/.config
 RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
