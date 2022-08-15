@@ -1,7 +1,7 @@
-name: Full build and deploy container to Gihub Packages
+name: Update and deploy container to Gihub Packages
 on:
-  push:
-    branches: ["main"]
+  schedule:
+    - cron: "0 0 * * *" # every day at midnight
   workflow_dispatch:
 
 env:
@@ -52,8 +52,10 @@ jobs:
         with:
           context: .
           push: true
+          file: update.Dockerfile
           platforms: linux/arm64
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache
+          no-cache: true # Since the update.Dockerfile only runs apt updates, it should always run all commands

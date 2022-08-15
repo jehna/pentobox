@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-yes | docker pull ghcr.io/jehna/penbox:main
+yes | docker pull ghcr.io/jehna/pentobox:main
 yes | docker image prune > /dev/null
 yes | docker container prune > /dev/null
 yes | docker volume prune > /dev/null
