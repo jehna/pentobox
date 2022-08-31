@@ -11,4 +11,3 @@ source ~/.config/bash/main.bash
 cd /work || exit
 PS1="👺$PS1"
 PATH="$PATH:/root/go/bin"
-[ -z "$TMUX" ] && tmux -u
