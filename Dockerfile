@@ -62,8 +62,7 @@ RUN git clone https://github.com/jehna/my-terminal-config.git ~/.config
 RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
 
 # Install FoxyProxy
-RUN mkdir /usr/share/firefox-esr/distribution/extensions
-RUN curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
+RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
 
 COPY bash_profile /root/.bash_profile
 
