@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
   # Reporting tools
   kali-tools-reporting
 
-RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv
+RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr
 
 RUN git clone https://github.com/jehna/my-terminal-config.git ~/.config
 RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
@@ -64,4 +64,10 @@ RUN curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standa
 
 COPY bash_profile /root/.bash_profile
 
-ENTRYPOINT bash --login $@
+# Xephyr
+COPY xephyr.service /etc/systemd/system/xephyr.service
+RUN systemctl daemon-reload && systemctl enable xephyr.service
+
+RUN chsh --shell /bin/bash
+
+ENTRYPOINT i3
