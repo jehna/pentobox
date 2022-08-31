@@ -69,7 +69,7 @@ COPY bash_profile /root/.bash_profile
 
 # Xephyr
 COPY xephyr.service /etc/systemd/system/xephyr.service
-RUN systemctl daemon-reload && systemctl enable xephyr.service
+RUN systemctl enable xephyr.service
 
 RUN chsh --shell /bin/bash
 
