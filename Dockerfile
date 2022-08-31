@@ -58,18 +58,24 @@ RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano ipu
 # Install VSCode
 RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64' -O /tmp/vscode.deb && apt install /tmp/vscode.deb && rm /tmp/vscode.deb
 
-RUN git clone https://github.com/jehna/my-terminal-config.git ~/.config
-RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
-
 # Install FoxyProxy
 RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
 
-COPY bash_profile /root/.bash_profile
+# User specific
+RUN adduser --disabled-password --gecos '' jehna
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN chsh --shell /bin/bash jehna
+RUN mkdir -p /opt/homebrew/bin && touch /opt/homebrew/bin/brew && chmod o+x /opt/homebrew/bin/brew
+USER jehna
 
-# Xephyr
-COPY xephyr.service /etc/systemd/system/xephyr.service
-RUN systemctl enable xephyr.service
+RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config
+RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
 
-RUN chsh --shell /bin/bash
+COPY bash_profile /home/jehna/.bashrc.additions
+RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
 
-ENTRYPOINT i3
+
+COPY i3.sh /usr/share/bin/i3.sh
+RUN rm -r ~/.config/i3
+
+CMD /usr/share/bin/i3.sh
