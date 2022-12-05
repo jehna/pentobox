@@ -64,6 +64,7 @@ RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addo
 # User specific
 RUN adduser --disabled-password --gecos '' jehna
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+RUN echo 'jehna ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN chsh --shell /bin/bash jehna
 RUN mkdir -p /opt/homebrew/bin && touch /opt/homebrew/bin/brew && chmod o+x /opt/homebrew/bin/brew
 USER jehna
