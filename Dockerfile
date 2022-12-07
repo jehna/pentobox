@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
   # Reporting tools
   kali-tools-reporting
 
-RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf
+RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings
 
 # Install VSCode
 RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64' -O /tmp/vscode.deb && apt install /tmp/vscode.deb && rm /tmp/vscode.deb
@@ -67,6 +67,7 @@ RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN echo 'jehna ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
 RUN chsh --shell /bin/bash jehna
 RUN mkdir -p /opt/homebrew/bin && touch /opt/homebrew/bin/brew && chmod o+x /opt/homebrew/bin/brew
+RUN ln -s /usr/share/payloadsallthethings /usr/share/wordlists/payloadsallthethings
 USER jehna
 
 RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config
