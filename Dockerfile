@@ -71,7 +71,7 @@ RUN ln -s /usr/share/payloadsallthethings /usr/share/wordlists/payloadsallthethi
 USER jehna
 
 RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config
-RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest && export PATH=$PATH:~/go/bin
+RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
 
 COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
