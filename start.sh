@@ -5,6 +5,7 @@ yes | docker pull ghcr.io/jehna/pentobox:main
 yes | docker image prune > /dev/null
 yes | docker container prune > /dev/null
 yes | docker volume prune > /dev/null
+yes | docker system prune > /dev/null
 
 IP=$(ifconfig en0 | grep inet | awk '$1=="inet" {print $2}')
 xhost + "$IP" > /dev/null
