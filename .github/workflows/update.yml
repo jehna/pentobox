@@ -1,7 +1,7 @@
 name: Update and deploy container to Gihub Packages
 on:
   schedule:
-    - cron: "0 0 * * *" # every day at midnight
+    - cron: "0 0 * * 1" # every day at midnight
   workflow_dispatch:
 
 env:
