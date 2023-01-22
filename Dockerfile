@@ -61,6 +61,9 @@ RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-a
 # Install FoxyProxy
 RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
 
+# Smuggler
+RUN git clone https://github.com/defparam/smuggler.git /opt/smuggler && ln -s /opt/smuggler/smuggler.py /usr/local/bin/smuggler
+
 # User specific
 RUN adduser --disabled-password --gecos '' jehna
 RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
@@ -75,7 +78,6 @@ RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
 
 COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
-
 
 COPY i3.sh /usr/share/bin/i3.sh
 RUN rm -r ~/.config/i3
