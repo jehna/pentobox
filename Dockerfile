@@ -62,7 +62,7 @@ RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-a
 RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
 
 # Smuggler
-RUN git clone https://github.com/defparam/smuggler.git /opt/smuggler && ln -s /opt/smuggler/smuggler.py /usr/local/bin/smuggler
+RUN git clone https://github.com/defparam/smuggler.git /opt/smuggler && ln -s /opt/smuggler/smuggler.py /usr/local/bin/smuggler && chmod o+rw /opt/smuggler/payloads/
 
 # User specific
 RUN adduser --disabled-password --gecos '' jehna
