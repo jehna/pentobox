@@ -53,7 +53,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
   # Reporting tools
   kali-tools-reporting
 
-RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings
+RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3
 
 # Install VSCode
 RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64' -O /tmp/vscode.deb && apt install /tmp/vscode.deb && rm /tmp/vscode.deb
@@ -75,7 +75,7 @@ USER jehna
 
 RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config
 RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
-
+RUN pip install --user git-dumper
 COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
 
