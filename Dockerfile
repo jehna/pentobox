@@ -85,7 +85,9 @@ RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git
   GO111MODULE=on go install github.com/OJ/gobuster/v3@latest; \
   #
   # Install git-dumper
-  pip install --user git-dumper;
+  pip install --user git-dumper \
+    # Install angr decompiler
+    angr;
 
 COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
