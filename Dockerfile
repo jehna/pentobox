@@ -1,9 +1,10 @@
 FROM kalilinux/kali-rolling:arm64
 
-RUN apt update
-RUN DEBIAN_FRONTEND=noninteractive apt install kali-linux-arm kali-desktop-core -y
-
-RUN DEBIAN_FRONTEND=noninteractive apt install -y \
+RUN DEBIAN_FRONTEND=noninteractive apt update && \
+  # Install Kali
+  apt install -y \
+  kali-linux-arm kali-desktop-core \
+  #
   # Tools which benefit from having access to GPU hardware
   #kali-tools-gpu \
   # Hardware hacking tools
@@ -51,31 +52,41 @@ RUN DEBIAN_FRONTEND=noninteractive apt install -y \
   # Forensic tools – Live & Offline
   kali-tools-forensics \
   # Reporting tools
-  kali-tools-reporting
+  kali-tools-reporting \
+  # Own tools
+  burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3 ghidra; \
+  #
+  #
+  # Install VSCode
+  wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64' -O /tmp/vscode.deb && apt install /tmp/vscode.deb && rm /tmp/vscode.deb; \
+  #
+  # Install FoxyProxy
+  mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi; \
+  #
+  # Smuggler
+  git clone https://github.com/defparam/smuggler.git /opt/smuggler && ln -s /opt/smuggler/smuggler.py /usr/local/bin/smuggler && chmod o+rw /opt/smuggler/payloads/; \
+  #
+  # User specific
+  adduser --disabled-password --gecos '' jehna; \
+  echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers; \
+  echo 'jehna ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers; \
+  chsh --shell /bin/bash jehna; \
+  #
+  mkdir -p /opt/homebrew/bin; \
+  touch /opt/homebrew/bin/brew; \
+  chmod o+x /opt/homebrew/bin/brew; \
+  ln -s /usr/share/payloadsallthethings /usr/share/wordlists/payloadsallthethings
 
-RUN apt-get install -y burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3
-
-# Install VSCode
-RUN wget 'https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-arm64' -O /tmp/vscode.deb && apt install /tmp/vscode.deb && rm /tmp/vscode.deb
-
-# Install FoxyProxy
-RUN mkdir /usr/share/firefox-esr/distribution/extensions && curl -L https://addons.mozilla.org/firefox/downloads/latest/foxyproxy-standard/addon-00000000-latest.xpi > /usr/share/firefox-esr/distribution/extensions/foxyproxy@eric.h.jung.xpi
-
-# Smuggler
-RUN git clone https://github.com/defparam/smuggler.git /opt/smuggler && ln -s /opt/smuggler/smuggler.py /usr/local/bin/smuggler && chmod o+rw /opt/smuggler/payloads/
-
-# User specific
-RUN adduser --disabled-password --gecos '' jehna
-RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN echo 'jehna ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
-RUN chsh --shell /bin/bash jehna
-RUN mkdir -p /opt/homebrew/bin && touch /opt/homebrew/bin/brew && chmod o+x /opt/homebrew/bin/brew
-RUN ln -s /usr/share/payloadsallthethings /usr/share/wordlists/payloadsallthethings
 USER jehna
 
-RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config
-RUN GO111MODULE=on go install github.com/OJ/gobuster/v3@latest
-RUN pip install --user git-dumper
+RUN rm -r ~/.config && git clone https://github.com/jehna/my-terminal-config.git ~/.config; \
+  #
+  # Install Gobuster
+  GO111MODULE=on go install github.com/OJ/gobuster/v3@latest; \
+  #
+  # Install git-dumper
+  pip install --user git-dumper; \
+
 COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
 
