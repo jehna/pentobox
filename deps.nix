@@ -14,4 +14,5 @@ pkgs:
         git-dumper
         ffuf
         smuggler
+        nmap
       ]
