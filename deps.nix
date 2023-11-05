@@ -13,4 +13,5 @@ pkgs:
         burpsuite
         git-dumper
         ffuf
+        smuggler
       ]
