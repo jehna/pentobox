@@ -12,4 +12,5 @@ pkgs:
         gobuster
         burpsuite
         git-dumper
+        ffuf
       ]
