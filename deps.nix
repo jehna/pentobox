@@ -10,4 +10,5 @@ pkgs:
         my-terminal-config
         git
         gobuster
+        burpsuite
       ]
