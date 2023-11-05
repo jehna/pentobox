@@ -11,4 +11,5 @@ pkgs:
         git
         gobuster
         burpsuite
+        git-dumper
       ]
