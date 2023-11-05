@@ -6,5 +6,8 @@ pkgs:
 
       [
         bash
+        ghidra
         my-terminal-config
+        git
+        gobuster
       ]
