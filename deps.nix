@@ -16,3 +16,4 @@ pkgs:
         smuggler
         nmap
       ]
+      ++ import ./packages/kali-metapackages/kali-tools-fuzzing.nix all
