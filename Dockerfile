@@ -93,7 +93,6 @@ COPY bash_profile /home/jehna/.bashrc.additions
 RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
 
 COPY i3.sh /usr/share/bin/i3.sh
-RUN rm -r ~/.config/i3
 COPY nitrogen ~/.config/nitrogen
 
 CMD /usr/share/bin/i3.sh
