@@ -54,7 +54,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
   # Reporting tools
   kali-tools-reporting \
   # Own tools
-  burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3 ghidra; \
+  burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3 ghidra nitrogen; \
   #
   #
   # Install VSCode
@@ -94,5 +94,6 @@ RUN cat /home/jehna/.bashrc.additions >> /home/jehna/.bashrc
 
 COPY i3.sh /usr/share/bin/i3.sh
 RUN rm -r ~/.config/i3
+COPY nitrogen ~/.config/nitrogen
 
 CMD /usr/share/bin/i3.sh
