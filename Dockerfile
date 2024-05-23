@@ -54,7 +54,7 @@ RUN DEBIAN_FRONTEND=noninteractive apt update && \
   # Reporting tools
   kali-tools-reporting \
   # Own tools
-  burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3 ghidra nitrogen; \
+  burpsuite telnet freerdp2-x11 x11-apps golang-go nano iputils-ping openvpn dnsutils chromium virtualenv i3 xserver-xephyr htop ffuf payloadsallthethings python-is-python3 ghidra nautilus nitrogen maim; \
   #
   #
   # Install VSCode
